@@ -6,6 +6,7 @@ namespace qprt
 	class Color
 	{
 	 public:
+		 Color();
 		 Color(float, float, float);
 		 float red, green, blue;
 

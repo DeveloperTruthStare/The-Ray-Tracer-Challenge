@@ -3,7 +3,12 @@
 
 namespace qprt
 {
-
+	Color::Color()
+	{
+		this->red = 0;
+		this->green = 0;
+		this->blue = 0;
+	}
 	Color::Color(float red, float green, float blue)
 	{
 		this->red = red;
