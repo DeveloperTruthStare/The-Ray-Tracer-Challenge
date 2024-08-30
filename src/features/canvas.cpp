@@ -2,7 +2,7 @@
 #include <string>
 #include <sstream>
 #include "canvas.h"
-#include "../color/color.h"
+#include "color.h"
 
 qprt::Canvas::Canvas(int width, int height)
 {

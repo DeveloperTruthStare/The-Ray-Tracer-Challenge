@@ -8,15 +8,17 @@ add_subdirectory(googletest)
 enable_testing()
 
 set(SRC_TEST
-	src/tuple/tuple_tests.cpp
-	src/color/color_tests.cpp
-	src/canvas/canvas_tests.cpp
+	tests/tuple_tests.cpp
+	tests/color_tests.cpp
+	tests/canvas_tests.cpp
+    tests/matrix_tests.cpp
 )
 
 set(SRC_CORE
-	src/tuple/tuple.cpp
-	src/color/color.cpp
-	src/canvas/canvas.cpp
+	src/features/tuple.cpp
+	src/features/color.cpp
+	src/features/canvas.cpp
+    src/features/matrix.cpp
 )
 
 set(SRC_EXE

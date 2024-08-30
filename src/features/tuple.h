@@ -19,6 +19,8 @@ namespace qprt
 		Tuple operator*(float);
 		Tuple operator/(float);
 		friend std::ostream& operator<<(std::ostream&, const Tuple&);
+        float& operator[](size_t);
+        float operator[](size_t) const;
 	};
 
 

@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "color.h"
+#include "../src/features/color.h"
 
 #define EPSILON 0.000001
 

@@ -3,7 +3,7 @@
 #include <gtest/gtest.h>
 #define EPSILON 0.000001
 
-#include "canvas.h"
+#include "../src/features/canvas.h"
 
 using namespace qprt;
 

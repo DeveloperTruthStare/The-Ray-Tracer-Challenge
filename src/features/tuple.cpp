@@ -1,6 +1,7 @@
 #include "tuple.h"
 #include <iostream>
 #include <cmath>
+#include <stdexcept>
 
 namespace qprt
 {
@@ -88,4 +89,20 @@ namespace qprt
 					  a.z * b.x - a.x * b.z,
 					  a.x * b.y - a.y * b.x);
 	}
+    float& Tuple::operator[](size_t index)
+    {
+        if (index == 0) return x;
+        if (index == 1) return y;
+        if (index == 2) return z;
+        if (index == 3) return w;
+        throw new std::invalid_argument("Index out of range for tuple, ensure range is between (0, 3)");
+    }
+    float Tuple::operator[](size_t index) const
+    {
+        if (index == 0) return x;
+        if (index == 1) return y;
+        if (index == 2) return z;
+        if (index == 3) return w;
+        throw new std::out_of_range("Index out of range");
+    }
 }

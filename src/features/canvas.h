@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "../color/color.h"
+#include "color.h"
 
 namespace qprt
 {

@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #define EPSILON 0.000001
 
-#include "tuple.h"
+#include "../src/features/tuple.h"
 
 using namespace qprt;
 

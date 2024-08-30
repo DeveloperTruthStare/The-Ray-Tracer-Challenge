@@ -1,6 +1,6 @@
-#include "canvas/canvas.h"
-#include "color/color.h"
-#include "tuple/tuple.h"
+#include "features/canvas.h"
+#include "features/color.h"
+#include "features/tuple.h"
 
 using namespace qprt;
 
