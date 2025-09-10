@@ -6,14 +6,16 @@ namespace qprt
 	class Tuple
 	{
 	 public: 
+		 Tuple();
 		Tuple(float, float, float, float);
 		float x, y, z, w;
 
-		float Magnitude();
+		float SqrMagnitude() const;
+		float Magnitude() const;
 		Tuple normal();
 
-		Tuple operator+(const Tuple&);
-		Tuple operator-(const Tuple&);
+		Tuple operator+(const Tuple&) const;
+		Tuple operator-(const Tuple&) const;
 		Tuple operator-();
 		friend Tuple operator*(float lhs, const Tuple& rhs);
 		Tuple operator*(float);
@@ -21,6 +23,8 @@ namespace qprt
 		friend std::ostream& operator<<(std::ostream&, const Tuple&);
         float& operator[](size_t);
         float operator[](size_t) const;
+		std::string to_string() const;
+		Tuple copy() const;
 	};
 
 

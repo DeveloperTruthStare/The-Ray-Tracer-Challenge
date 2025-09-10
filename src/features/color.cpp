@@ -25,6 +25,8 @@ namespace qprt
 	{
 		return Color(this->red - rhs.red, this->green - rhs.green, this->blue - rhs.blue);
 	}
+
+	// Hadamard Product
 	Color Color::operator*(const Color& rhs)
 	{
 		return Color(this->red * rhs.red, this->green * rhs.green, this->blue * rhs.blue);

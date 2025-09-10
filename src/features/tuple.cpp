@@ -2,11 +2,14 @@
 #include <iostream>
 #include <cmath>
 #include <stdexcept>
+#include <sstream>
 
 namespace qprt
 {
 
-
+	Tuple::Tuple() {
+		this->x = this->y = this->z = this->w = 0;
+	}
 	Tuple::Tuple(float x, float y, float z, float w)
 	{
 		this->x = x;
@@ -15,9 +18,13 @@ namespace qprt
 		this->w = w;
 	}
 
-	float Tuple::Magnitude()
+	float Tuple::SqrMagnitude() const {
+		return (this->x * this->x) + (this->y * this->y) + (this->z * this->z) + (this->w * this->z);
+	}
+
+	float Tuple::Magnitude() const
 	{
-		return std::sqrt(std::pow(this->x, 2) + std::pow(this->y, 2) + std::pow(this->z, 2) + std::pow(this->w, 2));
+		return std::sqrt(this->SqrMagnitude());
 	}
 
 	Tuple Tuple::normal()
@@ -26,12 +33,12 @@ namespace qprt
 		return *this / magnitude;
 	}
 
-	Tuple Tuple::operator+(const Tuple& other)
+	Tuple Tuple::operator+(const Tuple& other) const
 	{
 		return Tuple(this->x + other.x, this->y + other.y, this->z + other.z, this->w + other.w);
 	}
 
-	Tuple Tuple::operator-(const Tuple& other)
+	Tuple Tuple::operator-(const Tuple& other) const
 	{
 		return Tuple(this->x - other.x, this->y - other.y, this->z - other.z, this->w - other.w);
 	}
@@ -105,4 +112,13 @@ namespace qprt
         if (index == 3) return w;
         throw new std::out_of_range("Index out of range");
     }
+	Tuple Tuple::copy() const {
+		return Tuple(this->x, this->y, this->z, this->w);
+	}
+
+	std::string Tuple::to_string() const {
+		std::ostringstream oss;
+		oss << "(" << this->x << ", " << this->y << ", " << this->z << ", " << this->w << ")";
+		return oss.str();
+	}
 }

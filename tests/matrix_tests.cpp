@@ -3,8 +3,6 @@
 
 #include "../src/features/matrix.h"
 
-
-
 using namespace qprt;
 
 TEST(Matrix, CreateMatrix) {

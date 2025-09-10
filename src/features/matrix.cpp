@@ -1,10 +1,24 @@
 #include <vector>
+#include <exception>
+#include <sstream>
 
 #include "matrix.h"
 #include "tuple.h"
 
 namespace qprt
 {
+    Matrix::Matrix() {
+        this->rows = this->cols = 0;
+        this->data.resize(0);
+    }
+    Matrix IdentityMatrix(uint size) {
+        Matrix identityMatrix = Matrix(size, size);
+        for (auto i = 0; i < size; ++i) {
+            identityMatrix[i][i] = 1;
+        }
+
+        return identityMatrix;
+    }
     Matrix::Matrix(std::initializer_list<std::initializer_list<float>> init)
     {
         this->rows = init.size();
@@ -34,7 +48,6 @@ namespace qprt
     {
         return this->data[row][col];
     }
-
 
     Matrix Matrix::T() const
     {
@@ -104,6 +117,11 @@ namespace qprt
         auto inv = Matrix(this->rows, this->cols);
 
         auto det = this->determinant();
+
+        if (det == 0) {
+            // Matrix is not invertable
+            throw std::runtime_error("Matrix is not invertable");
+        }
 
 
         for(size_t r = 0; r < this->rows; ++r)
@@ -187,5 +205,17 @@ namespace qprt
             }
         }
         return result;
+    }
+    
+    std::string Matrix::to_string() const {
+        std::ostringstream oss;
+        for (int row = 0; row < this->rows; ++row) {
+            oss << "|";
+            for (int col = 0; col < this->cols; ++col) {
+                oss << this->data[row][col] << " ";
+            }
+            oss << "|\n";
+        }
+        return oss.str();
     }
 }

@@ -7,8 +7,10 @@
 namespace qprt {
     class Matrix {
      public:
+        Matrix();
         Matrix(std::initializer_list<std::initializer_list<float>>);
         Matrix(size_t rows, size_t cols);
+
         float get(size_t, size_t) const;
         size_t rows, cols;
         std::vector<std::vector<float>> data;
@@ -27,6 +29,8 @@ namespace qprt {
         Tuple operator*(const Tuple&) const;
         std::vector<float>& operator[](const size_t);
         std::vector<float> operator[](const size_t) const;
-
+        std::string to_string() const;
     };
+
+    Matrix IdentityMatrix(uint size);
 }

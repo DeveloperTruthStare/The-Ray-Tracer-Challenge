@@ -3,6 +3,7 @@
 #include <sstream>
 #include "canvas.h"
 #include "color.h"
+#include "tuple.h"
 
 qprt::Canvas::Canvas(int width, int height)
 {
@@ -70,14 +71,17 @@ namespace qprt
 				Color* pixel = &this->pixels[y * this->width + x];
 				
 				int redValue = (int)(pixel->red  * 255);
+				if (redValue > 255) redValue = 255;
 				std::string redStr = std::to_string(redValue);
 				check_new_line(file, ss, redStr);
 
 				int greenValue = (int)(pixel->green * 255);
+				if (greenValue > 255) greenValue = 255;
 				std::string greenStr = std::to_string(greenValue);
 				check_new_line(file, ss, greenStr);
 
 				int blueValue = (int)(pixel->blue * 255);
+				if (blueValue > 255) blueValue = 255;
 				std::string blueStr = std::to_string(blueValue);
 				check_new_line(file, ss, blueStr);
 			}
@@ -89,5 +93,9 @@ namespace qprt
 		file << ss.str() << "\n";
 
 		file.close();
+	}
+
+	Tuple Canvas::Center() {
+		return Tuple(this->width/2, this->height/2, 0, 0);
 	}
 }

@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 
+#define BLACK Color(0, 0, 0)
+
 namespace qprt
 {
 	class Color

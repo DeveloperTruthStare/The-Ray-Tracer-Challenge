@@ -19,6 +19,15 @@ set(SRC_CORE
 	src/features/color.cpp
 	src/features/canvas.cpp
     src/features/matrix.cpp
+    src/features/translation.cpp
+	src/features/sphere.cpp
+	src/features/ray.cpp
+	src/features/intersection.cpp
+	src/features/light.cpp
+	src/features/material.cpp
+	src/features/world.cpp
+	src/features/transform.cpp
+	src/features/comps.cpp
 )
 
 set(SRC_EXE
