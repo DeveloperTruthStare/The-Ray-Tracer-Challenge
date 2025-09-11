@@ -4,9 +4,11 @@
 
 #include "tuple.h"
 
-namespace qprt {
-    class Matrix {
-     public:
+namespace qprt
+{
+    class Matrix
+    {
+    public:
         Matrix();
         Matrix(std::initializer_list<std::initializer_list<float>>);
         Matrix(size_t rows, size_t cols);
@@ -23,14 +25,14 @@ namespace qprt {
         float cofactor(size_t, size_t) const;
         Matrix inverse() const;
 
-        bool operator==(const Matrix&) const;
-        bool operator!=(const Matrix&) const;
-        Matrix operator*(const Matrix&) const;
-        Tuple operator*(const Tuple&) const;
-        std::vector<float>& operator[](const size_t);
+        bool operator==(const Matrix &) const;
+        bool operator!=(const Matrix &) const;
+        Matrix operator*(const Matrix &) const;
+        Tuple operator*(const Tuple &) const;
+        std::vector<float> &operator[](const size_t);
         std::vector<float> operator[](const size_t) const;
         std::string to_string() const;
     };
 
-    Matrix IdentityMatrix(uint size);
+    Matrix IdentityMatrix(int size);
 }

@@ -1,67 +1,18 @@
 cmake_minimum_required(VERSION 3.10)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 project(RayTracerChallenge)
 
-# Add Google Test
-add_subdirectory(googletest)
-
-enable_testing()
-
-set(SRC_TEST
-	tests/tuple_tests.cpp
-	tests/color_tests.cpp
-	tests/canvas_tests.cpp
-    tests/matrix_tests.cpp
-)
-
-set(SRC_CORE
-	src/features/tuple.cpp
-	src/features/color.cpp
-	src/features/canvas.cpp
-    src/features/matrix.cpp
-    src/features/translation.cpp
-	src/features/sphere.cpp
-	src/features/ray.cpp
-	src/features/intersection.cpp
-	src/features/light.cpp
-	src/features/material.cpp
-	src/features/world.cpp
-	src/features/transform.cpp
-	src/features/comps.cpp
-)
-
-set(SRC_EXE
-	src/main.cpp
-)
-
-add_library(
-	rtcore
-	${SRC_CORE}
+file(GLOB_RECURSE RAYTRACER_SOURCES
+	src/*.cpp
+	src/*.h
+	src/features/*.cpp
+	src/features/*.h
 )
 
 add_executable(
 	raytracer
-	${SRC_EXE}
-)
-
-target_link_libraries (
-	raytracer
-	rtcore
-)
-
-add_executable(
-	RTTests
-	${SRC_TEST}
-)
-
-target_link_libraries(
-	RTTests
-	rtcore
-	gtest
-	gtest_main
-)
-
-add_test(
-	NAME RTTests
-	COMMAND RTTests
+	${RAYTRACER_SOURCES}
 )

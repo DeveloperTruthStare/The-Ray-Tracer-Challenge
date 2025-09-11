@@ -7,13 +7,16 @@
 
 namespace qprt
 {
-    Matrix::Matrix() {
+    Matrix::Matrix()
+    {
         this->rows = this->cols = 0;
         this->data.resize(0);
     }
-    Matrix IdentityMatrix(uint size) {
+    Matrix IdentityMatrix(int size)
+    {
         Matrix identityMatrix = Matrix(size, size);
-        for (auto i = 0; i < size; ++i) {
+        for (auto i = 0; i < size; ++i)
+        {
             identityMatrix[i][i] = 1;
         }
 
@@ -26,7 +29,8 @@ namespace qprt
         this->data.resize(rows);
 
         size_t row = 0;
-        for (const auto& rowList : init) {
+        for (const auto &rowList : init)
+        {
             this->data[row].assign(rowList);
             ++row;
         }
@@ -38,7 +42,7 @@ namespace qprt
         this->cols = cols;
         this->data.resize(rows);
 
-        for(auto i = 0; i < rows; ++i)
+        for (auto i = 0; i < rows; ++i)
         {
             this->data[i].resize(cols);
         }
@@ -52,9 +56,9 @@ namespace qprt
     Matrix Matrix::T() const
     {
         auto t = Matrix(this->cols, this->rows);
-        for(size_t row = 0; row < this->rows; ++row)
+        for (size_t row = 0; row < this->rows; ++row)
         {
-            for(size_t col = 0; col < this->cols; ++col)
+            for (size_t col = 0; col < this->cols; ++col)
             {
                 t[col][row] = this->data[row][col];
             }
@@ -64,15 +68,15 @@ namespace qprt
 
     Matrix Matrix::sub_matrix(size_t row, size_t col) const
     {
-        auto result = Matrix(this->rows-1, this->cols-1);
+        auto result = Matrix(this->rows - 1, this->cols - 1);
         size_t r = 0;
         size_t c = 0;
-        for(size_t i = 0; i < this->rows; ++i)
+        for (size_t i = 0; i < this->rows; ++i)
         {
             if (i != row)
             {
                 c = 0;
-                for(size_t j = 0; j < this->cols; ++j)
+                for (size_t j = 0; j < this->cols; ++j)
                 {
                     if (j != col)
                     {
@@ -88,13 +92,14 @@ namespace qprt
 
     float Matrix::determinant() const
     {
-        if (this->rows != this->cols) throw new std::out_of_range("Must have same rows and cols to calculate determinant");
+        if (this->rows != this->cols)
+            throw new std::out_of_range("Must have same rows and cols to calculate determinant");
         float result = 0.0;
         if (this->rows == 2)
         {
             return this->data[0][0] * this->data[1][1] - this->data[1][0] * this->data[0][1];
         }
-        for(size_t i = 0; i < this->rows; ++i)
+        for (size_t i = 0; i < this->rows; ++i)
         {
             result += this->cofactor(i, 0) * this->data[i][0];
         }
@@ -118,15 +123,15 @@ namespace qprt
 
         auto det = this->determinant();
 
-        if (det == 0) {
+        if (det == 0)
+        {
             // Matrix is not invertable
             throw std::runtime_error("Matrix is not invertable");
         }
 
-
-        for(size_t r = 0; r < this->rows; ++r)
+        for (size_t r = 0; r < this->rows; ++r)
         {
-            for(size_t c = 0; c < this->cols; ++c)
+            for (size_t c = 0; c < this->cols; ++c)
             {
                 inv[r][c] = this->cofactor(c, r) / det;
             }
@@ -134,34 +139,37 @@ namespace qprt
         return inv;
     }
 
-    bool Matrix::operator==(const Matrix& other) const
+    bool Matrix::operator==(const Matrix &other) const
     {
-        if (this->rows != other.rows || this->cols != other.cols) return false;
-        for(int i = 0; i < this->rows; ++i)
+        if (this->rows != other.rows || this->cols != other.cols)
+            return false;
+        for (int i = 0; i < this->rows; ++i)
         {
-            for(int j = 0; j < this->cols; ++j)
+            for (int j = 0; j < this->cols; ++j)
             {
-                if (this->data[i][j] != other.get(i, j)) return false;
+                if (this->data[i][j] != other.get(i, j))
+                    return false;
             }
         }
         return true;
     }
-    
-    bool Matrix::operator!=(const Matrix& other) const
+
+    bool Matrix::operator!=(const Matrix &other) const
     {
-        if (this->rows != other.rows || this->cols != other.cols) return true;
-        for(size_t i = 0; i < this->rows; ++i)
+        if (this->rows != other.rows || this->cols != other.cols)
+            return true;
+        for (size_t i = 0; i < this->rows; ++i)
         {
-            for(size_t j = 0; j < this->cols; ++j)
+            for (size_t j = 0; j < this->cols; ++j)
             {
-                if (this->data[i][j] != other.get(i, j)) return true;
+                if (this->data[i][j] != other.get(i, j))
+                    return true;
             }
         }
         return false;
     }
 
-
-    std::vector<float>& Matrix::operator[](const size_t row)
+    std::vector<float> &Matrix::operator[](const size_t row)
     {
         return this->data[row];
     }
@@ -171,17 +179,18 @@ namespace qprt
         return this->data[row];
     }
 
-    Tuple Matrix::operator*(const Tuple& other) const
+    Tuple Matrix::operator*(const Tuple &other) const
     {
-        if (this->rows != 4 || this->cols != 4) {
+        if (this->rows != 4 || this->cols != 4)
+        {
             std::cerr << "Matrix size is not 4x4, returning original tuple\n";
             return other;
         }
         Tuple result(0, 0, 0, 0);
-        for(int i = 0; i < 4; ++i)
+        for (int i = 0; i < 4; ++i)
         {
             result[i] = 0;
-            for(int j = 0; j < 4; ++j)
+            for (int j = 0; j < 4; ++j)
             {
                 result[i] += other[j] * this->data[i][j];
             }
@@ -189,16 +198,17 @@ namespace qprt
         return result;
     }
 
-    Matrix Matrix::operator*(const Matrix& other) const
+    Matrix Matrix::operator*(const Matrix &other) const
     {
-        if (this->cols != other.rows) throw new std::out_of_range("Matrix composition is not compatible for multiplication");
+        if (this->cols != other.rows)
+            throw new std::out_of_range("Matrix composition is not compatible for multiplication");
 
         Matrix result(this->rows, other.cols);
-        for(size_t r = 0; r < result.rows; ++r)
+        for (size_t r = 0; r < result.rows; ++r)
         {
-            for(size_t c = 0; c < result.cols; ++c)
+            for (size_t c = 0; c < result.cols; ++c)
             {
-                for(int i = 0; i < this->cols; ++i)
+                for (int i = 0; i < this->cols; ++i)
                 {
                     result[r][c] += this->get(r, i) * other.get(i, c);
                 }
@@ -206,12 +216,15 @@ namespace qprt
         }
         return result;
     }
-    
-    std::string Matrix::to_string() const {
+
+    std::string Matrix::to_string() const
+    {
         std::ostringstream oss;
-        for (int row = 0; row < this->rows; ++row) {
+        for (int row = 0; row < this->rows; ++row)
+        {
             oss << "|";
-            for (int col = 0; col < this->cols; ++col) {
+            for (int col = 0; col < this->cols; ++col)
+            {
                 oss << this->data[row][col] << " ";
             }
             oss << "|\n";
